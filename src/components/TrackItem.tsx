@@ -1,7 +1,7 @@
 export const TrackItem = () => {
       return (
             <div>
-                  <h1>Track Item</h1>
+                  <h1>TrackItem</h1>
             </div>
       );
 };

@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 
-export const TracksList = () => {
-      const [selectedTrackId, setSelectedTrackId] = useState(null);
+export const TracksList = (props) => {
       const [tracks, setTracks] = useState(null);
 
       useEffect(() => {
             fetch(
                   'https://musicfun.it-incubator.app/api/1.0/playlists/tracks',
                   {
+                        // 'DELETE API !!!'
+                        // 'DELETE API !!!'
+                        // 'DELETE API !!!'
                         headers: {
                               'api-key': '',
                         },
@@ -16,11 +18,6 @@ export const TracksList = () => {
                   .then((res) => res.json())
                   .then((json) => setTracks(json.data));
       }, []);
-
-      //       const tracks = [
-      //    { id: 1, title: 'track-1', url: 'http://' },
-      //    { id: 2, title: 'track-2', url: 'http://' },
-      //       ];
 
       if (tracks === null) {
             return (
@@ -45,7 +42,7 @@ export const TracksList = () => {
                         <h1>MusicFun</h1>
                         <button
                               onClick={() => {
-                                    setSelectedTrackId(null);
+                                    props.onTrackSelect(null);
                               }}
                         >
                               Reset selection
@@ -62,7 +59,7 @@ export const TracksList = () => {
                                                                   style={{
                                                                         border:
                                                                               track.id ===
-                                                                              selectedTrackId
+                                                                              props.selectedTrackId
                                                                                     ? '2px solid tomato'
                                                                                     : '2px solid white',
                                                                         textAlign:
@@ -74,7 +71,7 @@ export const TracksList = () => {
                                                             >
                                                                   <div
                                                                         onClick={() => {
-                                                                              setSelectedTrackId(
+                                                                              props.onTrackSelect?.(
                                                                                     track.id,
                                                                               );
                                                                         }}

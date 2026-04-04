@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-export const TrackDetail = () => {
+export const TrackDetail = (props) => {
       const [selectedTrack, setSelectedTrack] = useState(null);
-      const [selectedTrackId, setSelectedTrackId] = useState(null);
+      const selectedTrackId = props.trackId;
 
       useEffect(() => {
             if (!selectedTrackId) {
@@ -12,6 +12,9 @@ export const TrackDetail = () => {
                   'https://musicfun.it-incubator.app/api/1.0/playlists/tracks/' +
                         selectedTrackId,
                   {
+                        // 'DELETE API !!!'
+                        // 'DELETE API !!!'
+                        // 'DELETE API !!!'
                         headers: {
                               'api-key': '',
                         },
@@ -24,9 +27,21 @@ export const TrackDetail = () => {
             <div>
                   <h1>Track Detail</h1>
                   <h2>Details</h2>
-                  {!selectedTrack && 'track is not selected'}
-                  {selectedTrack && 'loading track...'}
-                  <h3>lyrics</h3>
+                  {!selectedTrack &&
+                        !selectedTrackId &&
+                        'Track is not selected'}
+                  {!selectedTrack && selectedTrackId && 'Loading track...'}
+                  {selectedTrack &&
+                        selectedTrackId &&
+                        selectedTrack.id !== selectedTrackId &&
+                        'Loading next track...'}
+                  {selectedTrack && (
+                        <div>
+                              {selectedTrack.attributes.title}
+                              <h3>lyrics</h3>
+                              {selectedTrack.attributes.lyrics ?? 'No lyrics'}
+                        </div>
+                  )}
             </div>
       );
 };

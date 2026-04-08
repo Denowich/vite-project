@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { TrackItem } from './TrackItem';
 
-export const TracksList = (props) => {
+export const TracksList = ({ onTrackSelect, selectedTrackId }) => {
       const [tracks, setTracks] = useState(null);
 
       useEffect(() => {
@@ -12,7 +12,8 @@ export const TracksList = (props) => {
                         // 'DELETE API !!!'
                         // 'DELETE API !!!'
                         headers: {
-                              'api-key': '00b55d65-518b-49dd-b73e-845e02e9861b',
+                              'api-key':
+                                    '00b55d65-518b-49dd-b73e-845e02e9861b-',
                         },
                   },
             )
@@ -38,7 +39,7 @@ export const TracksList = (props) => {
       }
 
       const onHandleResetClick = () => {
-            props.onTrackSelect(null);
+            onTrackSelect(null);
       };
 
       return (
@@ -56,7 +57,7 @@ export const TracksList = (props) => {
                                                 {tracks.map((track) => {
                                                       const handleClick =
                                                             () => {
-                                                                  props.onTrackSelect?.(
+                                                                  onTrackSelect?.(
                                                                         track.id,
                                                                   );
                                                             };
@@ -65,7 +66,7 @@ export const TracksList = (props) => {
                                                                   key={track.id}
                                                                   track={track}
                                                                   selectedTrackId={
-                                                                        props.selectedTrackId
+                                                                        selectedTrackId
                                                                   }
                                                                   handleClick={
                                                                         handleClick

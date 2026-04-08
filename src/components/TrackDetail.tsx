@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
 
-export const TrackDetail = (props) => {
+export const TrackDetail = ({ trackId }) => {
       const [selectedTrack, setSelectedTrack] = useState(null);
-      const selectedTrackId = props.trackId;
 
       useEffect(() => {
-            if (!selectedTrackId) {
+            if (!trackId) {
                   return;
             }
             fetch(
                   'https://musicfun.it-incubator.app/api/1.0/playlists/tracks/' +
-                        selectedTrackId,
+                        trackId,
                   {
                         // 'DELETE API !!!'
                         // 'DELETE API !!!'
@@ -22,18 +21,16 @@ export const TrackDetail = (props) => {
             )
                   .then((res) => res.json())
                   .then((json) => setSelectedTrack(json.data));
-      }, [selectedTrackId]);
+      }, [trackId]);
       return (
             <div>
                   <h1>Track Detail</h1>
                   <h2>Details</h2>
-                  {!selectedTrack &&
-                        !selectedTrackId &&
-                        'Track is not selected'}
-                  {!selectedTrack && selectedTrackId && 'Loading track...'}
+                  {!selectedTrack && !trackId && 'Track is not selected'}
+                  {!selectedTrack && trackId && 'Loading track...'}
                   {selectedTrack &&
-                        selectedTrackId &&
-                        selectedTrack.id !== selectedTrackId &&
+                        trackId &&
+                        selectedTrack.id !== trackId &&
                         'Loading next track...'}
                   {selectedTrack && (
                         <div>

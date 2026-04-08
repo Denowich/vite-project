@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { TrackItem } from './TrackItem';
 
 export const TracksList = (props) => {
       const [tracks, setTracks] = useState(null);
@@ -11,7 +12,7 @@ export const TracksList = (props) => {
                         // 'DELETE API !!!'
                         // 'DELETE API !!!'
                         headers: {
-                              'api-key': '',
+                              'api-key': '00b55d65-518b-49dd-b73e-845e02e9861b',
                         },
                   },
             )
@@ -36,15 +37,15 @@ export const TracksList = (props) => {
             );
       }
 
+      const onHandleResetClick = () => {
+            props.onTrackSelect(null);
+      };
+
       return (
             <div>
                   <div>
                         <h1>MusicFun</h1>
-                        <button
-                              onClick={() => {
-                                    props.onTrackSelect(null);
-                              }}
-                        >
+                        <button onClick={onHandleResetClick}>
                               Reset selection
                         </button>
 
@@ -53,47 +54,23 @@ export const TracksList = (props) => {
                                     <ol>
                                           <div>
                                                 {tracks.map((track) => {
+                                                      const handleClick =
+                                                            () => {
+                                                                  props.onTrackSelect?.(
+                                                                        track.id,
+                                                                  );
+                                                            };
                                                       return (
-                                                            <li
+                                                            <TrackItem
                                                                   key={track.id}
-                                                                  style={{
-                                                                        border:
-                                                                              track.id ===
-                                                                              props.selectedTrackId
-                                                                                    ? '2px solid tomato'
-                                                                                    : '2px solid white',
-                                                                        textAlign:
-                                                                              'left',
-                                                                        marginBottom:
-                                                                              '20px',
-                                                                        padding: '10px',
-                                                                  }}
-                                                            >
-                                                                  <div
-                                                                        onClick={() => {
-                                                                              props.onTrackSelect?.(
-                                                                                    track.id,
-                                                                              );
-                                                                        }}
-                                                                  >
-                                                                        {
-                                                                              track
-                                                                                    .attributes
-                                                                                    .title
-                                                                        }
-                                                                  </div>
-                                                                  <div>
-                                                                        <audio
-                                                                              controls
-                                                                              src={
-                                                                                    track
-                                                                                          .attributes
-                                                                                          .attachments[0]
-                                                                                          .url
-                                                                              }
-                                                                        ></audio>
-                                                                  </div>
-                                                            </li>
+                                                                  track={track}
+                                                                  selectedTrackId={
+                                                                        props.selectedTrackId
+                                                                  }
+                                                                  handleClick={
+                                                                        handleClick
+                                                                  }
+                                                            />
                                                       );
                                                 })}
                                           </div>

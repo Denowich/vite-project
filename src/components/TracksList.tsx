@@ -42,6 +42,10 @@ export const TracksList = ({ onTrackSelect, selectedTrackId }) => {
             onTrackSelect(null);
       };
 
+      const onHandleClick = (trackId) => {
+            onTrackSelect?.(trackId);
+      };
+
       return (
             <div>
                   <div>
@@ -55,21 +59,16 @@ export const TracksList = ({ onTrackSelect, selectedTrackId }) => {
                                     <ol>
                                           <div>
                                                 {tracks.map((track) => {
-                                                      const handleClick =
-                                                            () => {
-                                                                  onTrackSelect?.(
-                                                                        track.id,
-                                                                  );
-                                                            };
                                                       return (
                                                             <TrackItem
                                                                   key={track.id}
                                                                   track={track}
-                                                                  selectedTrackId={
+                                                                  isSelected={
+                                                                        track.id ===
                                                                         selectedTrackId
                                                                   }
-                                                                  handleClick={
-                                                                        handleClick
+                                                                  onSelect={
+                                                                        onHandleClick
                                                                   }
                                                             />
                                                       );
